@@ -6,6 +6,7 @@ SOURCES = main.cpp \
 		  Token.cpp \
 		  Tokenizer.cpp \
 		  Analyzer.cpp \
+		  Reducer.cpp \
 
 OBJECTS = $(SOURCES:.cpp=.o)
 

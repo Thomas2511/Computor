@@ -69,7 +69,7 @@ bool				Analyzer::_isDegree(Token & tkn)
 {
 	std::size_t		found = 0;
 
-	tkn.getValue().find_first_of("^", found);
+	found = tkn.getValue().find_first_of("^", found);
 	if (found != std::string::npos)
 	{
 		tkn.setType(DEGREE);

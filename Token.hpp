@@ -17,6 +17,7 @@ class Token
 		Token( void );
 		Token(Token const & src);
 		Token(tokenType type);
+		Token(std::string value, tokenType type);
 		~Token( void );
 		Token &					operator=(Token const & rhs);
 

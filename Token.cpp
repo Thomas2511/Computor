@@ -13,6 +13,10 @@ Token::Token(tokenType type) : _value(""), _type(type)
 {
 }
 
+Token::Token(std::string value, tokenType type) : _value(value), _type(type)
+{
+}
+
 Token::~Token( void )
 {
 }
