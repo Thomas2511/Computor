@@ -2,19 +2,17 @@
 #include <sstream>
 #include <vector>
 #include "Reducer.hpp"
-#include "X.hpp"
 
-std::list<Token> *							Reducer::reducer(std::list<Token> *lst)
+std::vector<double>							Reducer::reducer(std::list<Token> *lst)
 {
 	int										deg;
 	int										sign = 1;
 	double									val;
-	double									vec[1024];
-	std::string								prev;
+	std::vector<double>						vec;
 	std::list<Token>::iterator				it;
 
 	for (int i = 0; i < 1024; i++)
-		vec[i] = 0;
+		vec.push_back(0);
 	for (it = lst->begin(); (*it).getType() != EQUAL; it++)
 	{
 		if ((*it).getType() == VALUE)
@@ -41,8 +39,16 @@ std::list<Token> *							Reducer::reducer(std::list<Token> *lst)
 		}
 		it++;
 	}
+	_displayReducedForm(vec);
 	delete lst;
-	return (_createReducedForm(vec));
+	return (vec);
+}
+
+double										Reducer::abs(double d)
+{
+	if (d < 0)
+		d *= -1;
+	return d;
 }
 
 int											Reducer::_extractDegree(Token & tkn)
@@ -56,38 +62,30 @@ int											Reducer::_extractDegree(Token & tkn)
 	return ret;
 }
 
-std::list<Token> *							Reducer::_createReducedForm(double * vec)
+void										Reducer::_displayReducedForm(std::vector<double> vec)
 {
-	std::list<Token>						*lst = new std::list<Token>;
 	std::stringstream						ss;
 	bool									fst = 0;
 
 	for (int i = 0; i < 1024; i++)
 	{
 		if (vec[i] > 0 && fst == 1)
-			lst->push_back(Token("+", OP));
+			ss << " + ";
 		if (vec[i] < 0)
-			lst->push_back(Token("-", OP));
+			ss << " - ";
 		if (vec[i] != 0)
 		{
-			ss << _abs(vec[i]);
-			lst->push_back(Token(ss.str(), VALUE));
-			ss.str(std::string());
-			lst->push_back(Token("*", OP));
-			ss << "X^" << i;
-			lst->push_back(Token(ss.str(), DEGREE));
-			ss.str(std::string());
+			ss << abs(vec[i]);
+			if (i > 0)
+				ss << " * ";
+			if (i > 1)
+				ss << "X^" << i;
+			if (i == 1)
+				ss << "X";
 			fst = 1;
 		}
 	}
-	lst->push_back(Token("=", EQUAL));
-	lst->push_back(Token("0", VALUE));
-	return lst;
-}
-
-double										Reducer::_abs(double d)
-{
-	if (d < 0)
-		d *= -1;
-	return d;
+	if (!fst)
+		return ;
+	std::cout << "Reduced form: " << ss.str() << " = 0" << std::endl;
 }
