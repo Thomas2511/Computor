@@ -27,9 +27,17 @@ void				Solver::solver(std::vector<double> vec)
 		_resolveDegreeTwo(vec);
 	else
 	{
-		x = -vec[0] / vec[1];
-		std::cout << "The solution is:" << std::endl;
-		std::cout << x << std::endl;
+		if (vec[1] == 0 && vec[0] != 0)
+			std::cout << "This polynomial has no solutions." << std::endl;
+		else
+		{
+			if (vec[0] == 0)
+				x = 0;
+			else
+				x = -1 * (vec[0] / vec[1]);
+			std::cout << "The solution is:" << std::endl;
+			std::cout << x << std::endl;
+		}
 	}
 }
 
@@ -56,8 +64,8 @@ void				Solver::_resolveDegreeTwo(std::vector<double> vec)
 	disc = (b * b) - (4 * a * c);
 	if (disc > 0)
 	{
-		x1 = (-b - _squareRoot(disc)) / (2 * a);
-		x2 = (-b + _squareRoot(disc)) / (2 * a);
+		x1 = ((b * -1) - _squareRoot(disc)) / (2 * a);
+		x2 = ((b * -1) + _squareRoot(disc)) / (2 * a);
 		std::cout << "Discriminant is strictly positive, the two solutions are:" << std::endl;
 		std::cout << x1 << std::endl;
 		std::cout << x2 << std::endl;

@@ -6,7 +6,7 @@
 /*   By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/24 13:35:21 by tdieumeg          #+#    #+#             */
-/*   Updated: 2015/03/26 18:55:42 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2015/04/03 16:43:45 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int						main(int ac, char **av)
 
 	if (ac >= 2)
 	{
+		if (std::strcmp(av[1], "") == 0)
+			return 0;
 		lst = Tokenizer::tokenize(av[1]);
 		Analyzer::analyzer(lst);
 		reduced = Reducer::reducer(lst);

@@ -5,9 +5,9 @@
 
 std::vector<double>							Reducer::reducer(std::list<Token> *lst)
 {
-	int										deg;
+	int										deg = 0;
 	int										sign = 1;
-	double									val;
+	double									val = 0;
 	std::vector<double>						vec;
 	std::list<Token>::iterator				it;
 
@@ -16,7 +16,10 @@ std::vector<double>							Reducer::reducer(std::list<Token> *lst)
 	for (it = lst->begin(); (*it).getType() != EQUAL; it++)
 	{
 		if ((*it).getType() == VALUE)
+		{
 			val = std::atof((*it).getValue().c_str()) * sign;
+			sign = 1;
+		}
 		if ((*it).getValue().compare("-") == 0)
 			sign = -1;
 		if ((*it).getType() == DEGREE)
@@ -29,7 +32,10 @@ std::vector<double>							Reducer::reducer(std::list<Token> *lst)
 	while (it != lst->end())
 	{
 		if ((*it).getType() == VALUE)
+		{
 			val = std::atof((*it).getValue().c_str()) * sign;
+			sign = 1;
+		}
 		if ((*it).getValue().compare("-") == 0)
 			sign = -1;
 		if ((*it).getType() == DEGREE)

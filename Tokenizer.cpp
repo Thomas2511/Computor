@@ -12,7 +12,7 @@ std::list<Token> *				Tokenizer::tokenize(std::string const & content)
 
 	for (std::size_t i = 0; i < content.size(); i++)
 	{
-		found = content.find_first_of(" +-*", found);
+		found = content.find_first_of(" +-*=", found);
 		sub = content.substr(i, found - i);
 		if (sub.compare("") != 0)
 		{
@@ -21,7 +21,7 @@ std::list<Token> *				Tokenizer::tokenize(std::string const & content)
 			if (found == std::string::npos)
 				break ;
 		}
-		if (content[found] == '+' || content[found] == '-' || content[found] == '*')
+		if (content[found] == '+' || content[found] == '-' || content[found] == '*' || content[found] == '=')
 		{
 			ss << content[found];
 			tkn.setValue(ss.str());
